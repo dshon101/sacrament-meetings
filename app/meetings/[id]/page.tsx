@@ -6,8 +6,15 @@ interface MeetingPageProps {
   params: Promise<{ id: string }>;
 }
 
+function getBaseUrl(): string {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return 'http://localhost:3000';
+}
+
 async function getMeetingData(id: string): Promise<SacramentMeeting | null> {
-  const res = await fetch(`http://localhost:3000/api/meetings/${id}`, {
+  const res = await fetch(`${getBaseUrl()}/api/meetings/${id}`, {
     cache: 'no-store',
   });
 

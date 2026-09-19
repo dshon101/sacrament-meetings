@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-gray-800 text-white py-4 mt-12">
       <div className="container mx-auto text-center">
         <p>
-          Copyright &copy; {new Date().getFullYear()} | Demetrious Shoniwa | All
+          Copyright &copy; {new Date().getFullYear()} | Kasupe Brunch | All
           rights reserved
         </p>
       </div>

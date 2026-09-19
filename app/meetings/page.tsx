@@ -1,8 +1,15 @@
 import MeetingCard from '@/components/MeetingCard';
 import type { SacramentMeeting } from '@/lib/types';
 
+function getBaseUrl(): string {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return 'http://localhost:3000';
+}
+
 async function getMeetingsData(): Promise<SacramentMeeting[]> {
-  const res = await fetch('http://localhost:3000/api/meetings', {
+  const res = await fetch(`${getBaseUrl()}/api/meetings`, {
     cache: 'no-store',
   });
   return res.json();
