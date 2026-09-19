@@ -15,7 +15,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     );
   }
 
-  const meeting = getMeetingById(meetingId);
+  const meeting = await getMeetingById(meetingId);
 
   if (!meeting) {
     return Response.json(

@@ -3,18 +3,19 @@ import { getMeetings } from '@/lib/meetings-db';
 
 function getMostRecentSundayISO(): string {
   const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 (Sun) through 6 (Sat)
+  const dayOfWeek = today.getDay();
   const sunday = new Date(today);
   sunday.setDate(today.getDate() - dayOfWeek);
-  return sunday.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+  return sunday.toISOString().split('T')[0];
 }
 
-export default function CurrentMeetingPage() {
+export default async function CurrentMeetingPage() {
   const sundayDate = getMostRecentSundayISO();
-  const matches = getMeetings(sundayDate);
+  const allMeetings = await getMeetings('', 1);
+  const match = allMeetings.find((m) => m.date === sundayDate);
 
-  if (matches.length > 0) {
-    redirect(`/meetings/${matches[0].id}`);
+  if (match) {
+    redirect(`/meetings/${match.id}`);
   }
 
   redirect('/meetings');
