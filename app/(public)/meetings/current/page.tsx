@@ -1,6 +1,11 @@
 import { redirect } from 'next/navigation';
 import { getMeetings } from '@/lib/meetings-db';
 
+export const dynamic = 'force-dynamic';
+
+
+  
+
 function getMostRecentSundayISO(): string {
   const today = new Date();
   const dayOfWeek = today.getDay();

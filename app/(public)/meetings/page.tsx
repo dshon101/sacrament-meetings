@@ -3,6 +3,8 @@ import { MeetingSearch } from '@/components/MeetingSearch';
 import MeetingCard from '@/components/MeetingCard';
 import { Pagination } from '@/components/Pagination';
 
+export const dynamic = 'force-dynamic';
+
 export default async function MeetingsPage(props: {
   searchParams?: Promise<{ query?: string; page?: string }>;
 }) {
