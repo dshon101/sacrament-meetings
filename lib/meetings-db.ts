@@ -22,7 +22,7 @@ export async function getMeetings(
       opening_prayer              AS "openingPrayer",
       ward_business               AS "wardBusiness",
       stake_business              AS "stakeBusiness",
-      sacrament_hymn              AS "sacramentHymn",
+      sacrament_hymn               AS "sacramentHymn",
       speakers,
       closing_hymn                AS "closingHymn",
       closing_prayer              AS "closingPrayer"
@@ -66,7 +66,7 @@ export async function getMeetingById(
       opening_prayer              AS "openingPrayer",
       ward_business               AS "wardBusiness",
       stake_business              AS "stakeBusiness",
-      sacrament_hymn              AS "sacramentHymn",
+      sacrament_hymn               AS "sacramentHymn",
       speakers,
       closing_hymn                AS "closingHymn",
       closing_prayer              AS "closingPrayer"
@@ -77,18 +77,18 @@ export async function getMeetingById(
 
 // Mutation stubs — will be wired to the database in Week 04
 export async function addMeeting(
-  data: Omit<SacramentMeeting, 'id'>
+  _data: Omit<SacramentMeeting, 'id'>
 ): Promise<SacramentMeeting> {
   throw new Error('addMeeting: database implementation coming in Week 04');
 }
 
 export async function updateMeeting(
-  id: number,
-  updates: Partial<SacramentMeeting>
+  _id: number,
+  _updates: Partial<SacramentMeeting>
 ): Promise<SacramentMeeting | null> {
   throw new Error('updateMeeting: database implementation coming in Week 04');
 }
 
-export async function deleteMeeting(id: number): Promise<boolean> {
+export async function deleteMeeting(_id: number): Promise<boolean> {
   throw new Error('deleteMeeting: database implementation coming in Week 04');
 }
