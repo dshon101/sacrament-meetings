@@ -1,6 +1,28 @@
 import { notFound } from 'next/navigation';
 import MeetingDetail from '@/components/MeetingDetail';
 import type { SacramentMeeting } from '@/lib/types';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: MeetingPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const meeting = await getMeetingData(id);
+
+  if (!meeting) {
+    return { title: 'Meeting Not Found' };
+  }
+
+  const formattedDate = new Date(meeting.date).toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+
+  return {
+    title: formattedDate,
+    description: `Sacrament meeting agenda for ${formattedDate}, presided by ${meeting.presiding}.`,
+  };
+}
 
 interface MeetingPageProps {
   params: Promise<{ id: string }>;

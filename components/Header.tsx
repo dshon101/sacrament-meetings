@@ -1,3 +1,5 @@
+import AuthStatus from './AuthStatus';
+
 export default function Header() {
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -10,7 +12,10 @@ export default function Header() {
     <header className="bg-blue-700 text-white py-4 shadow-md">
       <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
         <div className="text-2xl font-bold">Kasupe Brunch</div>
-        <p className="text-sm">{today}</p>
+        <div className="flex items-center gap-4">
+          <p className="text-sm">{today}</p>
+          <AuthStatus />
+        </div>
       </div>
     </header>
   );

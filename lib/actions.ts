@@ -3,6 +3,8 @@
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { AuthError } from 'next-auth';
+import { signIn } from '@/auth';
 import {
   addMeeting,
   updateMeeting as updateMeetingInDb,
@@ -103,7 +105,7 @@ export async function createMeeting(
     await addMeeting(buildMeetingData(validatedFields.data));
   } catch (error) {
     console.error('createMeeting failed:', error);
-    return { message: 'Failed to create meeting. Please try again.' };
+    throw new Error('Failed to create meeting. Please try again.');
   }
 
   revalidatePath('/meetings');
@@ -133,7 +135,7 @@ export async function updateMeeting(
     }
   } catch (error) {
     console.error('updateMeeting failed:', error);
-    return { message: 'Failed to update meeting. Please try again.' };
+    throw new Error('Failed to update meeting. Please try again.');
   }
 
   revalidatePath('/meetings');
@@ -149,4 +151,23 @@ export async function deleteMeeting(id: number, _formData?: FormData): Promise<v
     throw new Error('Failed to delete meeting. Please try again.');
   }
   revalidatePath('/meetings');
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+): Promise<string | undefined> {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid email or password.';
+        default:
+          return 'Something went wrong. Please try again.';
+      }
+    }
+    throw error;
+  }
 }

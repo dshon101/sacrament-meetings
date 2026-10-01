@@ -1,7 +1,6 @@
-import { neon } from '@neondatabase/serverless';
 import type { SacramentMeeting } from './types';
 
-const sql = neon(process.env.DATABASE_URL!);
+import { sql } from './db';
 
 const ITEMS_PER_PAGE = 5;
 
